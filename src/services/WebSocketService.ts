@@ -11,10 +11,8 @@ class WebSocketService {
     });
 
     this.socket.addEventListener('message', (event) => {
-      // Handle incoming messages
       const data = JSON.parse(event.data);
       console.log('socket received', data);
-      // Call the onMessage callback if provided
       if (this.onMessageCallback) {
         this.onMessageCallback(data);
       }
@@ -22,12 +20,10 @@ class WebSocketService {
 
     this.socket.addEventListener('close', () => {
       console.log('WebSocket closed.');
-      // Implement reconnection logic here if needed
     });
 
     this.socket.addEventListener('error', (error) => {
       console.error('WebSocket error:', error);
-      // Additional error handling logic
     });
   }
 
@@ -42,7 +38,6 @@ class WebSocketService {
   }
 
   forceError(): void {
-    // Force WebSocket feed to throw an error
     if (this.socket) {
       this.socket.dispatchEvent(new Event('error'));
     }
@@ -53,7 +48,6 @@ class WebSocketService {
   }
 
   subscribe(newProductIds: string[]): void {
-    // Unsubscribe from the current feed
     if (this.productIds.length > 0) {
       const unsubscribeMessage = {
         event: 'unsubscribe',
@@ -63,20 +57,16 @@ class WebSocketService {
       this.send(JSON.stringify(unsubscribeMessage));
     }
 
-    // Subscribe to the new feed
     const subscribeMessage = {
       event: 'subscribe',
       feed: 'book_ui_1',
       product_ids: newProductIds,
     };
     this.send(JSON.stringify(subscribeMessage));
-
-    // Update the productIds property
     this.productIds = newProductIds;
   }
   
   unsubscribe(): void {
-    // Unsubscribe from the current feed
     if (this.productIds.length > 0) {
       const unsubscribeMessage = {
         event: 'unsubscribe',

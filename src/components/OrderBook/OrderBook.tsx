@@ -13,14 +13,10 @@ interface OrderBookData {
 
 const OrderBook: React.FC = () => {
   const [buySide, setBuySide] = useState<OrderBookData[]>([
-    { price: 10000, size: 5, total: 0 },
-    { price: 9500, size: 8, total: 0 },
-    // Add more dummy data as needed
+    { price: 0, size: 0, total: 0 },
   ]);
   const [sellSide, setSellSide] = useState<OrderBookData[]>([
-    { price: 10500, size: 3, total: 0 },
-    { price: 11000, size: 7, total: 0 },
-    // Add more dummy data as needed
+    { price: 0, size: 0, total: 0 },
   ]);
   const [grouping, setGrouping] = useState<number>(0.5);
   const [webSocketService] = useState(new WebSocketService());
@@ -38,17 +34,24 @@ const OrderBook: React.FC = () => {
       asks: [number, number][];
       product_id: string;
     }) => {
-      // Assuming data is already in the correct format
       const processedData = processOrderBookData(data, grouping);
-
-      // Update the buy side by filtering out price levels with size 0
       const updatedBuySide = processedData.buySide.filter(item => item.size > 0);
-
-      // Update the sell side by filtering out price levels with size 0
       const updatedSellSide = processedData.sellSide.filter(item => item.size > 0);
 
-      setBuySide(updatedBuySide);
-      setSellSide(updatedSellSide);
+      setBuySide(prevBuySide => {
+        const revPrevside = prevBuySide.reverse();
+        const newSideSet = [...updatedBuySide, ...revPrevside];
+        const firstTenEntries = newSideSet.slice(0, 10);
+        return firstTenEntries;
+      });
+      
+      setSellSide(prevSellSide => {
+        const revPrevside = prevSellSide.reverse();
+        const newSideSet = [...updatedSellSide, ...revPrevside];
+        const firstTenEntries = newSideSet.slice(0, 10);
+        return firstTenEntries;
+      });
+      
     });
   }, [grouping, webSocketService]);
 
@@ -59,7 +62,6 @@ const OrderBook: React.FC = () => {
     asks: [number, number][];
     product_id: string;
   }, grouping: number) => {
-    // Check if data.bids and data.asks are defined and are arrays
     if (!Array.isArray(data.bids) || !Array.isArray(data.asks)) {
       console.error("Invalid data format. Expected arrays for bids and asks.");
       return {
@@ -68,7 +70,6 @@ const OrderBook: React.FC = () => {
       };
     }
 
-    // Group bids and asks based on the selected grouping
     const groupedBids = groupLevels(data.bids, grouping);
     const groupedAsks = groupLevels(data.asks, grouping);
 
@@ -97,8 +98,6 @@ const OrderBook: React.FC = () => {
       sellSide,
     };
   };
-
-  // Function to group levels based on the selected grouping
   const groupLevels = (levels: [number, number][], grouping: number) => {
     return levels.reduce((grouped, level) => {
       const price = Math.floor(level[0] / grouping) * grouping;
@@ -116,25 +115,20 @@ const OrderBook: React.FC = () => {
 
   const handleGroupingChange = (newGrouping: number) => {
     setGrouping(newGrouping);
-    // Additional logic for handling grouping change
   };
 
   const handleToggleFeed = () => {
-    // Toggle between PI_XBTUSD and PI_ETHUSD
     const newProductIds =
       webSocketService.getProductIds()[0] === 'PI_XBTUSD'
         ? ['PI_ETHUSD']
         : ['PI_XBTUSD'];
 
-    // Unsubscribe from the current feed
     webSocketService.unsubscribe();
 
-    // Subscribe to the new feed
     webSocketService.subscribe(newProductIds);
   };
 
   const handleKillFeed = () => {
-    // Force WebSocket feed to throw an error
     webSocketService.forceError();
   };
 

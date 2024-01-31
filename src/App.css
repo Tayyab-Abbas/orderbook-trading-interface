@@ -14,7 +14,26 @@
 
 .body-container {
   display: flex;
+  overflow-y: scroll;
+  max-height: calc(100vh - 200px);
 }
+.body-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.body-container::-webkit-scrollbar-track {
+  background-color: #383f4a;
+}
+
+.body-container::-webkit-scrollbar-thumb {
+  background-color: #101826;
+  border-radius: 6px;
+}
+
+.body-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
 
 .footer-container {
   display: flex;

@@ -7,7 +7,7 @@ interface OrderBookToggleFeedButtonProps {
 const OrderBookToggleFeedButton: React.FC<OrderBookToggleFeedButtonProps> = ({ onToggleFeed }) => {
   return (
     <button className="toggle-feed-button" onClick={onToggleFeed}>
-      Toggle Feed
+      Start / Toggle Feed
     </button>
   );
 };
