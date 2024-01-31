@@ -1,38 +1,119 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Order Book Classes */
+.header-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 2px 0px;
+}
+
+.heading {
+  margin: 0;
+}
+
+.body-container {
+  display: flex;
+}
+
+.footer-container {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-top: 50px;
+}
+
+/* Order Book Grouping Select Classes */
+.grouping-button {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border: none;
+  cursor: auto;
+  border-radius: 5px;
+}
+
+.label {
+  margin-right: 10px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.select {
+  width: 50px;
+  background: unset;
+  border: unset;
+  color: #ffffff;
+  font-size: medium;
+  cursor: pointer;
+}
+.select:hover {
+  outline: unset;
+  border: unset;
+  cursor: pointer;
+}
+.select:active {
+  outline: unset;
+  border: unset;
+  cursor: pointer;
+}
+.select:focus-visible {
+  outline: unset;
+  border: unset;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Order Book Table Classes  */
+.order-book-container {
+  font-family: 'Arial', sans-serif;
+}
+
+.side-container {
+  margin: 0px 1px;
+  width: 50%;
+  height: calc(100vh - 200px);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.highest-total-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Order Book Toggle Button Classes */
+.toggle-feed-button {
+  background-color: #5741d9;
+  padding: 10px;
+  margin: 4px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.toggle-feed-button:hover {
+  background-color: #4c37c4;
+}
+
+/* Order Book Kill Button Classes */
+.kill-feed-button {
+  background-color: #b91c1d;
+  padding: 10px;
+  margin: 4px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.kill-feed-button:hover {
+  background-color: #b11616;
 }
