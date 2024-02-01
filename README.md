@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Getting Started with Orderbook Trading Interface
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Interface Layout
+<img width="1678" alt="Screenshot 2024-02-01 at 12 31 43 PM" src="https://github.com/Tayyab-Abbas/orderbook-trading-interface/assets/88709933/68d24979-cd46-408a-a4d7-4c88386f7e22">
+
+
 
 ## Available Scripts
 
